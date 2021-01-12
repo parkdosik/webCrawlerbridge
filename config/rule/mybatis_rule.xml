@@ -1,0 +1,75 @@
+<!--?xml version="1.0" encoding="UTF-8"?-->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="rule">
+    <select id="category" resultType="kr.co.wisenut.webCrawler.vo.CategoryVO" >
+    /* 수집 룰 정보 : rule.category */
+    SELECT
+		sc.num as searchNum,
+		sc.mainCategory,
+		sc.subCategory,
+		sc.baseUrl, 
+		sc.sortOption, 
+		sc.optionFnc, 
+		sc.etcOption,
+		so.resultListCode,
+		so.portalLinkCode, 
+		so.pressUrlCode,
+		so.TitleCode,
+		so.TitleLinkCode,
+		so.TitleLinkCode2,
+		so.InputDateCode,
+		so.SummaryExistsCode,
+		so.SummaryclickCode,
+		so.SummaryCode,
+		so.ContentCode,
+		so.ContentCodeExt,
+		so.ContentCodeExt2,
+		so.NameCode, 
+		so.WriterCode,
+		so.CommentListCode,
+		so.InputDateCode,
+		se.subscribe,
+		se.readnum, 
+		se.likeitGood,
+		se.likeitWarm,
+		se.likeitSad, 
+		se.likeitAngry, 
+		se.likeitWant, 
+		se.sympathy,
+		se.recommend, 
+		se.notrecomment,
+		se.scrap, 
+		se.commentchannelIntro,
+		se.commentchannelmore,
+		se.displayedbutton,
+		se.channelDescClass,		
+		so.pagingNextElementCode,
+		co.commentList,
+		co.commentListSort,
+		co.commentPaginate, 
+		co.commentWriter,
+		co.commentWriterExt,
+		co.commentContents,
+		co.commentContentsExt,
+		co.commentDate,
+		co.commentDateExt,
+		co.commentRecommand,
+		co.commentRecommandExt,
+		co.commentNotRecommand,
+		co.commentNotRecommandExt,
+		co.commentNextpaging
+	FROM 
+		search_category sc,  scrap_option so, scrap_etcoption se, scrap_comment co
+	WHERE 
+		sc.num = so.searchNum
+	AND 
+		sc.num = se.searchNum	
+	AND
+		sc.num = co.searchNum
+	AND 	
+		sc.num = '${categoryId}'
+    </select>
+ 
+    
+</mapper>

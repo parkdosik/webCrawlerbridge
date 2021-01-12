@@ -1,0 +1,328 @@
+<!--?xml version="1.0" encoding="UTF-8"?-->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="daum">
+    <!-- //////////////////////////////////////////////////////////////////////////////////// -->
+     <select id="CrawlerNewsSelectCount" resultType="Int" parameterType="String" >
+    	/**  다음 뉴스 카운트  : mybatis_daum.CrawlerNewsSelectCount */
+        SELECT 
+        	count(docid) 
+		FROM job_resultnews
+		WHERE docid = '${docid}'
+    </select>
+    
+    <insert id="CrawlerNewsInsert" parameterType="kr.co.wisenut.webCrawler.vo.NewsVO">
+    
+    INSERT INTO job_resultnews 
+    (
+        docid,
+        keywordNum,
+		keyword,
+        title,
+        press,
+        reporter,
+        url,
+        pressUrl,
+        mainCategory, 
+        subCategory, 
+        content,
+        inputdate,
+        updatedate,
+        summary,
+        press_react_likeit,
+        press_react_warm,
+        press_react_sad,
+        press_react_angry,
+        press_react_want,
+        dataregdate,
+	    insert_date,
+	    crawler_date
+    )
+	VALUES 
+	(
+		'${docid}',
+		'${keywordNum}',
+        '${keyword}',
+		'${title}',
+		'${press}',
+		'',
+		'${url}',
+		'${pressUrl}',
+		'${mainCategory}',
+		'${subCategory}',
+		'${contents}',
+		'${inputdate}',
+		'${update}',
+		'${summary}',
+		'${likeitGood}',
+		'${likeitWarm}',
+		'${likeitSad}',
+		'${likeitAngry}',
+		'${likeitWant}',
+		'${dataregdate}', 
+		'${insertDate}',
+		'${crawlerdate}'
+	)
+    </insert>
+     <update id="CrawlerNewsUpdate" parameterType="kr.co.wisenut.webCrawler.vo.NewsVO">
+	    /** 다음 뉴스 업데이트  : mybatis_daum.CrawlerNewsUpdate */
+	    UPDATE  job_resultnews 
+	    	SET 
+	    	    keywordNum  = '${keywordNum}' ,
+				keyword  	= '${keyword}' ,
+		        title  		= '${title}' ,
+		        press  		= '${press}' ,
+		        /* reporter  = , */ 
+		        url  = '${url}' ,
+		        pressUrl  = '${pressUrl}' ,
+		        mainCategory = '${mainCategory}' ,
+		        subCategory  = '${subCategory}' ,
+		        content  = '${contents}' ,
+		        inputdate  = '${inputdate}' ,
+			    updatedate  = '${update}' ,
+		        summary  = '${summary}' ,
+		        press_react_likeit  = '${likeitGood}' ,
+		        press_react_warm  = '${likeitWarm}' ,
+		        press_react_sad  = '${likeitSad}' ,
+		        press_react_angry  = '${likeitAngry}' ,
+		        press_react_want  = '${likeitWant}',
+		        insert_date = '${insertDate}',
+				crawler_date = '${crawlerDate}' ,
+		        dataregdate  = '${dataregDate}'
+	    WHERE docid = '${docid}'
+
+    </update>
+      <!-- //////////////////////////////////////////////////////////////////////////////////// -->
+    
+    <select id="CrawlerNewscommentSelectCount" resultType="Int" parameterType="String" >
+    	/**  다음 뉴스 댓글 카운트  : mybatis_daum.CrawlerNewscommentSelectCount */
+        SELECT 
+        	count(docid) 
+		FROM job_resultnewscomment
+		WHERE docid = '${docid}'
+    </select>
+    
+    <insert id="CrawlerNewscommentInsert" parameterType="kr.co.wisenut.webCrawler.vo.NewsCommentVO">
+	    /** 다음 뉴스 댓글 입력 :  mybatis_daum.CrawlerNewscommentInsert */
+	    INSERT INTO job_resultnewscomment 
+	    (
+	        docid,
+			mainkey,
+			keywordNum,
+			keyword,
+			mainCategory,
+			subCategory,
+			newsorder,
+			newscommentWriter,
+			newscommentContent,
+			newscommentRecommand,
+			newscommentNotRecommand,
+			newscommentRegdate,
+			dataregdate,
+			insert_date,
+			crawler_date
+
+	    ) VALUES (
+			'${docid}',
+			'${mainKey}',
+			'${keywordNum}' ,
+			'${keyword}' ,
+			'${mainCategory}' ,
+			'${subCategory}' ,
+			'${commentRe}',
+			'${writer}',
+			'${contents}',
+			'${recomm}',
+			'${unrecomm}',
+			'${date}',
+			'${dataregDate}',
+			'${insertDate}',
+			'${crawlerDate}'	
+		)
+		ON DUPLICATE KEY UPDATE newscommentWriter = '${writer}', newscommentContent = '${contents}', newscommentRegdate = '${date}'
+    </insert>
+    
+    <!-- //////////////////////////////////////////////////////////////////////////////////// -->
+    
+    <select id="CrawlerCafeSelectCount" resultType="Int" parameterType="String" >
+   	 	/**  다음 카페 :  mybatis_daum.CrawlerCafeSelectCount */
+        SELECT 
+        	count(docid) 
+		FROM job_resultcafe
+		WHERE docid = '${docid}'
+    </select>
+    
+    <insert id="CrawlerCafeInsert" parameterType="kr.co.wisenut.webCrawler.vo.CafeVO">
+    	/**  다음 카페 :  mybatis_daum.CrawlerCafeSelectCount */
+	    INSERT INTO job_resultcafe 
+	    (
+	        docid,
+	        keywordNum,
+	        keyword,
+	        mainCategory, 
+	        subCategory, 
+	        cafeName,
+	        cafeUrl,
+	        cafeTitle,
+	        cafeContent,
+	        cafeWriter,
+	        cafeRecommandCount,
+	        cafeScrapCount,
+	        cafeInput,
+	        dataregdate,
+	        insert_date,
+	        crawler_date
+	    )VALUES (
+			'${docid}',
+			'${keywordNum}' ,
+			'${keyword}' ,
+			'${mainCategory}',
+			'${subCategory}',
+			'${cafeName}',
+			'${cafeUrl}',
+			'${cafeTitle}',
+			'${cafeContents}',
+			'${cafeWriter}',
+			'${cafeRecommand}',
+			'${cafeScrap}',
+			'${cafeInput}',
+			'${dataregDate}',
+			'${insertDate}',
+			'${crawlerDate}'
+		)
+    </insert>
+    <update id="CrawlerCafeUpdate" parameterType="kr.co.wisenut.webCrawler.vo.CafeVO">
+	    /** 다음 카폐 업데이트  : mybatis_daum.CrawlerCafeUpdate */
+	    UPDATE  job_resultcafe 
+	    	SET 
+	    	    keywordNum  = '${keywordNum}' ,
+				keyword  	= '${keyword}' ,
+	    		mainCategory = '${mainCategory}',
+	    		subCategory  = '${subCategory}',
+		    	cafeName = '${cafeName}',
+		        cafeUrl = '${cafeUrl}',
+		        cafeTitle = '${cafeTitle}',
+		        cafeContent = '${cafeContents}',
+		        cafeWriter = '${cafeWriter}',
+		        cafeRecommandCount = '${cafeRecommand}',
+		        cafeScrapCount = '${cafeScrap}',
+		        dataregdate = '${dataregDate}',
+				insert_date = '${insertDate}',
+				crawler_date = '${crawlerDate}'
+	    WHERE docid = '${docid}'
+
+    </update>
+    
+    
+    <!-- //////////////////////////////////////////////////////////////////////////////////// -->
+    <select id="CrawlerCafecommentSelectCount" resultType="Int" parameterType="String" >
+    	/**  다음 카페 댓글 카운트  : mybatis_daum.CrawlerCafecommentSelectCount */
+        SELECT 
+        	count(docid) 
+		FROM job_resultcafecomment
+		WHERE docid = '${docid}'
+    </select>
+    
+    <insert id="CrawlerCafecommentInsert" parameterType="kr.co.wisenut.webCrawler.vo.CafeCommentVO">
+	    /** 다음 케페 댓글 입력 :  mybatis_daum.CrawlerCafecommentInsert */
+	    INSERT INTO job_resultcafecomment 
+	    (
+	        docid,
+			mainKey,
+			keywordNum,
+			keyword,
+			mainCategory,
+			subCategory,
+			cafeorder,
+			cafecommentWriter,
+			cafecommentContent,
+			cafecommentRegdate,
+			dataregdate,
+			insert_date,
+			crawler_date
+
+	    ) VALUES (
+			'${docid}',
+			'${mainKey}',
+			'${keywordNum}' ,
+			'${keyword}' ,
+			'${mainCategory}' ,
+			'${subCategory}' ,
+			'${cafeCommentRe}',
+			'${cafeCommentWriter}',
+			'${cafeCommentContents}',
+			'${cafeCommentDate}',
+			'${dataregDate}',
+			'${insertDate}',
+			'${crawlerDate}'			
+		)
+	ON DUPLICATE KEY UPDATE cafecommentWriter = '${cafeCommentWriter}', cafecommentContent = '${cafeCommentContents}', cafecommentRegdate = '${cafeCommentDate}'
+    </insert>
+    
+     <!-- //////////////////////////////////////////////////////////////////////////////////// -->
+    
+    <select id="CrawlerBlogSelectCount" resultType="Int" parameterType="String" >
+    	/**  다음 블로그 카운트  : mybatis_daum.CrawlerBlogSelectCount */
+        SELECT 
+        	count(docid) 
+		FROM job_resultblog
+		WHERE docid = '${docid}'
+    </select>
+    
+    
+    <insert id="CrawlerBlogInsert" parameterType="kr.co.wisenut.webCrawler.vo.BlogVO">
+    /** 다음 블로그 입력  : mybatis_daum.CrawlerBlogInsert */
+    INSERT INTO job_resultblog 
+    (
+        docid,
+        keywordNum,
+		keyword,
+        mainCategory, 
+	    subCategory, 
+        blogName,
+        blogUrl,
+        blogTitle,
+        blogContent,
+        blogRegdate,
+        dataregdate,
+        insert_date,
+        crawler_date
+    )
+	VALUES 
+	(
+		'${docid}',
+		'${keywordNum}',
+		'${keyword}',
+		'${mainCategory}',
+		'${subCategory}',
+		'${blogName}',
+		'${blogUrl}',
+		'${blogTitle}',
+		'${blogContents}',
+		'${blogInput}',
+		'${dataregDate}',
+		'${blogCrawlerDate}',
+		'${crawlerDate}'
+	)
+    </insert>
+    
+    <update id="CrawlerBlogUpdate" parameterType="kr.co.wisenut.webCrawler.vo.BlogVO">
+    /** 다음 블로그 업데이트  : mybatis_daum.CrawlerBlogUpdate */
+    UPDATE  job_resultblog 
+    	SET 
+    	    keywordNum  = '${keywordNum}' ,
+			keyword  	= '${keyword}' ,
+    		mainCategory = '${mainCategory}',
+    		subCategory  = '${subCategory}',
+	    	blogName = '${blogName}',
+	        blogUrl = '${blogUrl}',
+	        blogTitle = '${blogTitle}',
+	        blogContent = '${blogContents}',
+	        blogRegdate = '${blogInput}',
+	        dataregdate = '${dataregDate}',
+			insert_date = '${insertDate}',
+			crawler_date '${crawlerDate}'
+    WHERE docid = '${docid}'
+
+    </update>
+</mapper>

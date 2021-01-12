@@ -1,0 +1,120 @@
+<!--?xml version="1.0" encoding="UTF-8"?-->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="youtube">
+ <select id="CrawlerYoutubeSelectCount" resultType="Int" parameterType="String" >
+    	/**  유튜브 카운트  : mybatis_daum.CrawlerYoutubeSelectCount */
+        SELECT 
+        	count(docid) 
+		FROM job_resultyoutube
+		WHERE docid = '${docid}'
+    </select>
+    <insert id="CrawlerYoutubeInsert" parameterType="kr.co.wisenut.webCrawler.vo.YoutubeVO">
+    INSERT INTO job_resultyoutube 
+    (
+        docid,
+        keywordNum,
+		keyword,
+		mainCategory,
+		subCategory,
+        channelname,
+        url,
+        title,
+        subscribe,
+        recommand,
+        notrecommand,
+        readnum,
+        introcomment,
+        regdate,
+        dataregdate,
+        insert_date,
+        crawler_date
+    )
+	VALUES 
+	(
+		'${docid}',
+	    '${keywordNum}' ,
+		'${keyword}' ,
+		'${mainCategory}' ,
+		'${subCategory}' ,
+		'${youtubeWriter}',
+		'${youtubearticleUrl}',
+		'${youtubearticleTitle}',
+		'${youtubeSubscribe}',
+		'${youtubeRecommand}',
+		'${youtubeNtRecommand}',
+		'${youtubeReadnum}',
+		'${youtubeChannelmore}',
+		'${youtubeuploadDate}',
+		'${youtubeDataRegdate}',
+		'${youtubeinsertDate}',
+		'${youtubecrawlerdate}'
+		
+	)
+    </insert>
+     <update id="CrawlerYoutubeUpdate" parameterType="kr.co.wisenut.webCrawler.vo.YoutubeVO">
+	    /** 유튜브 업데이트  : mybatis_youtube.CrawlerYoutubeUpdate */
+	    UPDATE  job_resultyoutube 
+	    	SET 
+	    	    keywordNum    = '${keywordNum}' ,
+				keyword  	  = '${keyword}' ,
+				mainCategory  =	'${mainCategory}' ,
+				subCategory   = '${subCategory}' ,
+		        channelname   = '${youtubeWriter}' ,
+		        url  	      = '${youtubearticleUrl}' ,
+		        title  	      = '${youtubearticleTitle}' ,
+		        subscribe     = '${youtubeSubscribe}' ,
+		        recommand     = '${youtubeRecommand}' ,
+		        notrecommand  = '${youtubeNtRecommand}' ,
+		        readnum  	  = '${youtubeReadnum}' ,
+		        introcomment  = '${youtubeChannelmore}' ,
+		        regdate  = '${youtubeuploadDate}'
+	    WHERE docid = '${docid}'
+
+    </update>
+    <!-- //////////////////////////////////////////////////////////////////////////////////// -->
+    <select id="CrawlerYoutubecommentSelectCount" resultType="Int" parameterType="String" >
+    	/**  유튜브 댓글 카운트  : mybatis_youtube.CrawlerYoutubecommentSelectCount */
+        SELECT 
+        	count(docid) 
+		FROM job_resultyoutubecomment
+		WHERE docid = '${docid}'
+    </select>
+    
+    <insert id="CrawlerYoutubecommentInsert" parameterType="kr.co.wisenut.webCrawler.vo.YoutubeCommentVO">
+	    /** 유튜브 댓글 입력 :  mybatis_youtube.CrawlerYoutubecommentInsert */
+	    INSERT INTO job_resultyoutubecomment 
+	    (
+	        docid,
+			mainkey,
+			keywordNum,
+			keyword,
+			mainCategory,
+			subCategory,
+			youtubecommentWriter,
+			youtubecommentContent,
+			youtubecommentRecommand,
+			youtubecommentRegdate,
+			regdate,
+			dataregdate,
+			insert_date,
+			crawler_date
+	    ) VALUES (
+			'${docid}',
+			'${mainkey}',
+			'${keywordNum}',
+			'${keyword}',
+			'${mainCategory}',
+			'${subCategory}',
+			'${commentWriter}',
+			'${commentContents}',
+			'${youtubeCommentRecommand}', 
+			'${commentRegDate}',
+			'${regdate}',
+			'${dataregdate}',
+			'${insertDate}',
+			'${crawlerDate}'
+		)
+		ON DUPLICATE KEY UPDATE youtubecommentWriter = '${commentWriter}', youtubecommentContent = '${commentContents}', regdate = '${regdate}'
+    </insert>
+</mapper>

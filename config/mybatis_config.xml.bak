@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<environments default="development">
+		<environment id="development">
+			<transactionManager type="JDBC" />
+			<!-- connecting to Local MySql -->
+			<dataSource type="POOLED">
+				<property name="driver" value="org.mariadb.jdbc.Driver" />
+				<property name="url" value="jdbc:mysql://127.0.0.1:3306/crawler" />
+				<property name="username" value="wisenut" />
+				<property name="password" value="wisenut123!@#" />
+			</dataSource>
+		</environment>
+	</environments>
+
+	
+
+</configuration>

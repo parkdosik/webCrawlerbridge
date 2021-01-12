@@ -1,0 +1,47 @@
+<!--?xml version="1.0" encoding="UTF-8"?-->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="webCrawler">
+    <select id="keyword" resultType="String" >
+        SELECT keyword 
+		FROM crawler_keyword
+		WHERE num = ${keywordId}
+    </select>
+    <select id="category" resultType="kr.co.wisenut.webCrawler.vo.CategoryVO" >
+    SELECT
+		sc.num as searchNum,
+		sc.mainCategory,
+		sc.subCategory,
+		sc.baseUrl, 
+		sc.sortOption, 
+		sc.optionFnc, 
+		sc.etcOption,
+		so.resultListCode,
+		so.pressUrlCode,
+		so.TitleCode,
+		so.InputDateCode,
+		so.SummaryCode,
+		so.ContentCode,
+		so.WriterCode,
+		so.CommentListCode,
+		se.likeitGood,
+		se.likeitWarm,
+		se.likeitSad, 
+		se.likeitAngry, 
+		se.likeitWant, 
+		se.sympathy,
+		so.pagingNextElementCode
+	FROM 
+		search_category sc,  scrap_option so, scrap_etcoption se, scrap_comment co
+	WHERE 
+		sc.num = so.searchNum
+	AND 
+		sc.num = se.searchNum	
+	AND
+		sc.num = co.searchNum
+	AND 	
+		sc.num = ${categoryId}
+    </select>
+ 
+    
+</mapper>

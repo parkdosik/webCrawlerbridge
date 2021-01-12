@@ -1,0 +1,13 @@
+<!--?xml version="1.0" encoding="UTF-8"?-->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="keyword">
+    <select id="keywordOne" resultType="String" >
+   	 	/* 수집 키워드 가져오기 : keyword.keywordOne*/
+        SELECT keyword 
+		FROM crawler_keyword
+		WHERE num = '${keywordId}'
+    </select>
+    
+    
+</mapper>

@@ -1,0 +1,371 @@
+<!--?xml version="1.0" encoding="UTF-8"?-->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="naver">
+    <select id="CrawlerNewsSelectCount" resultType="Int" parameterType="kr.co.wisenut.webCrawler.vo.NewsVO" >
+    	/**  네이버 뉴스 카운트  : mybatis_naver.CrawlerNewsSelectCount */
+        SELECT 
+        	count(docid) 
+		FROM job_resultnews
+		WHERE  1=1 
+		AND docid = '${docid}'
+		AND keywordNum = '${keywordNum}'
+		AND keyword ='${keyword}'
+		AND mainCategory ='${mainCategory}'
+		AND subCategory ='${subCategory}'
+		
+    </select>
+    
+ 
+    <insert id="CrawlerNewsInsert" parameterType="kr.co.wisenut.webCrawler.vo.NewsVO">
+	    /** 네이버 뉴스 입력 :  mybatis_naver.CrawlerNewsInsert */
+	    INSERT INTO job_resultnews 
+	    (
+	        docid,
+	        keywordNum,
+	        keyword,
+	        title,
+	        press,
+	        reporter,
+	        url,
+	        pressUrl,
+	        mainCategory, 
+	        subCategory, 
+	        content,
+	        inputdate,
+	        updatedate,
+	        summary,
+	        press_react_likeit,
+	        press_react_warm,
+	        press_react_sad,
+	        press_react_angry,
+	        press_react_want,
+	        dataregdate,
+	        insert_date,
+	        crawler_date
+	    ) VALUES (
+			'${docid}',
+			'${keywordNum}',
+	        '${keyword}',
+			'${title}',
+			'${press}',
+			'${reporter}',
+			'${url}',
+			'${pressUrl}',
+			'${mainCategory}',
+			'${subCategory}',
+			'${contents}',
+			'${inputdate}',
+			'${update}',
+			'${summary}',
+			'${likeitGood}',
+			'${likeitWarm}',
+			'${likeitSad}',
+			'${likeitAngry}',
+			'${likeitWant}',
+			'${dataregDate}',
+			'${insertDate}',
+			'${crawlerDate}'
+		)
+
+    </insert>
+    <update id="CrawlerNewsUpdate" parameterType="kr.co.wisenut.webCrawler.vo.NewsVO">
+	    /** 네이버 뉴스 업데이트  : mybatis_naver.CrawlerNewsUpdate */
+	    UPDATE  job_resultnews 
+	    	SET 
+	    		keywordNum  = '${keywordNum}',
+	        	keyword  = '${keyword}',
+		        title  = '${title}' ,
+		        press  = '${press}' ,
+		        reporter  = '${reporter}' ,  
+		        url  = '${url}' ,
+		        pressUrl  = '${pressUrl}' ,
+		        mainCategory = '${mainCategory}' ,
+		        subCategory  = '${subCategory}' ,
+		        content  = '${contents}' ,
+		        inputdate  = '${inputdate}' ,
+		        updatedate  = '${update}' ,
+		        summary  = '${summary}' ,
+		        press_react_likeit  = '${likeitGood}' ,
+		        press_react_warm  = '${likeitWarm}' ,
+		        press_react_sad  = '${likeitSad}' ,
+		        press_react_angry  = '${likeitAngry}' ,
+		        press_react_want  = '${likeitWant}',
+		        dataregdate = '${dataregDate}',
+				insert_date = '${insertDate}',
+				crawler_date  = '${crawlerDate}' 
+	    WHERE 1=1
+	    AND docid = '${docid}'
+	    AND keywordNum = '${keywordNum}'
+		AND keyword ='${keyword}'
+		AND mainCategory ='${mainCategory}'
+		AND subCategory ='${subCategory}'
+
+    </update>
+    
+    <!-- //////////////////////////////////////////////////////////////////////////////////// -->
+    
+    <select id="CrawlerNewscommentSelectCount" resultType="Int" parameterType="kr.co.wisenut.webCrawler.vo.NewsCommentVO" >
+    	/**  네이버 뉴스 댓글 카운트  : mybatis_naver.CrawlerNewscommentSelectCount */
+        SELECT 
+        	count(docid) 
+		FROM job_resultnewscomment
+		WHERE 1=1
+		AND docid = '${docid}'
+		AND mainkey = '${mainKey}'
+		AND keywordNum = '${keywordNum}'
+		AND keyword ='${keyword}'
+		AND mainCategory ='${mainCategory}'
+		AND subCategory ='${subCategory}'
+    </select>
+    
+    <insert id="CrawlerNewscommentInsert" parameterType="kr.co.wisenut.webCrawler.vo.NewsCommentVO">
+	    /** 네이버 뉴스 댓글 입력 :  mybatis_naver.CrawlerNewscommentInsert */
+	    INSERT INTO job_resultnewscomment 
+	    (
+	        docid,
+			mainkey,
+			keywordNum,
+	        keyword,
+	        mainCategory,
+	        subCategory,
+			newsorder,
+			newscommentWriter,
+			newscommentContent,
+			newscommentRecommand,
+			newscommentNotRecommand,
+			newscommentRegdate,
+			dataregdate,
+			insert_date,
+			crawler_date
+	    ) VALUES (
+			'${docid}',
+			'${mainKey}',
+			'${keywordNum}',
+	        '${keyword}',
+	        '${mainCategory}',
+	        '${subCategory}',
+			'${commentRe}',
+			'${writer}',
+			'${contents}',
+			'${recomm}',
+			'${unrecomm}',
+			'${date}',
+			'${dataregDate}',
+			'${insertDate}',
+			'${crawlerDate}'			
+		)
+
+    </insert>
+    
+    <!-- //////////////////////////////////////////////////////////////////////////////////// -->
+    
+    <select id="CrawlerCafeSelectCount" resultType="Int" parameterType="kr.co.wisenut.webCrawler.vo.CafeVO" >
+   	 	/**  네이버 카페 :  mybatis_naver.CrawlerCafeSelectCount */
+        SELECT 
+        	count(docid) 
+		FROM job_resultcafe
+		WHERE 1=1
+		AND docid = '${docid}'
+		AND keywordNum = '${keywordNum}'
+		AND keyword ='${keyword}'
+		AND mainCategory ='${mainCategory}'
+		AND subCategory ='${subCategory}'
+    </select>
+    
+    <insert id="CrawlerCafeInsert" parameterType="kr.co.wisenut.webCrawler.vo.CafeVO">
+    	/**  네이버 카페 :  mybatis_naver.CrawlerCafeSelectCount */
+	    INSERT INTO job_resultcafe 
+	    (
+	        docid,
+	        keywordNum,
+	        keyword,
+	        mainCategory, 
+	        subCategory, 
+	        cafeName,
+	        cafeUrl,
+	        cafeTitle,
+	        cafeContent,
+	        cafeWriter,
+	        cafeRecommandCount,
+	        cafeScrapCount,
+	        cafeInput,
+	        dataregdate,
+	        insert_date,
+	        crawler_date
+	    )VALUES (
+			'${docid}',
+			'${keywordNum}',
+	        '${keyword}',
+			'${mainCategory}',
+			'${subCategory}',
+			'${cafeName}',
+			'${cafeUrl}',
+			'${cafeTitle}',
+			'${cafeContents}',
+			'${cafeWriter}',
+			'${cafeRecommand}',
+			'${cafeScrap}',
+			'${cafeInput}',
+			'${dataregDate}',
+			'${insertDate}',
+			'${crawlerDate}'
+		)
+    </insert>
+    <update id="CrawlerCafeUpdate" parameterType="kr.co.wisenut.webCrawler.vo.CafeVO">
+	    /** 네이버 카폐 업데이트  : mybatis_naver.CrawlerCafeUpdate */
+	    UPDATE  job_resultcafe 
+	    	SET 
+	    		keywordNum  = '${keywordNum}',
+	        	keyword  = '${keyword}',
+	    		mainCategory = '${mainCategory}',
+	    		subCategory  = '${subCategory}',
+		    	cafeName = '${cafeName}',
+		        cafeUrl = '${cafeUrl}',
+		        cafeTitle = '${cafeTitle}',
+		        cafeContent = '${cafeContents}',
+		        cafeWriter  = '${cafeWriter}',
+		        cafeInput   = '${cafeInput}',
+		        dataregdate = '${dataregDate}',
+		        insert_date = '${insertDate}',
+		        crawler_date = '${crawlerDate}'
+	    WHERE 1=1 
+	    AND docid = '${docid}'
+	    AND keywordNum = '${keywordNum}'
+		AND keyword ='${keyword}'
+		AND mainCategory ='${mainCategory}'
+		AND subCategory ='${subCategory}'
+
+    </update>
+    
+    
+    <!-- //////////////////////////////////////////////////////////////////////////////////// -->
+    <select id="CrawlerCafecommentSelectCount" resultType="Int" parameterType="kr.co.wisenut.webCrawler.vo.CafeCommentVO" >
+    	/**  네이버 카페 댓글 카운트  : mybatis_naver.CrawlerCafecommentSelectCount */
+        SELECT 
+        	count(docid) 
+		FROM job_resultcafecomment
+		WHERE 1=1
+		AND docid = '${docid}'
+		AND mainkey = '${mainKey}'
+	    AND keywordNum = '${keywordNum}'
+		AND keyword ='${keyword}'
+		AND mainCategory ='${mainCategory}'
+		AND subCategory ='${subCategory}'
+    </select>
+    
+    <insert id="CrawlerCafecommentInsert" parameterType="kr.co.wisenut.webCrawler.vo.CafeCommentVO">
+	    /** 네이버 케페 댓글 입력 :  mybatis_naver.CrawlerCafecommentInsert */
+	    INSERT INTO job_resultcafecomment 
+	    (
+	        docid,
+			mainKey,
+	        keywordNum,
+	        keyword,
+	        mainCategory,
+	        subCategory,
+			cafeorder,
+			cafecommentWriter,
+			cafecommentContent,
+			cafecommentRegdate,
+			dataregdate,
+			insert_date,
+			crawler_date
+
+	    ) VALUES (
+			'${docid}',
+			'${mainKey}',
+			'${keywordNum}',
+	        '${keyword}',
+	        '${mainCategory}',
+	        '${subCategory}',
+			'${cafeCommentRe}',
+			'${cafeCommentWriter}',
+			'${cafeCommentContents}',
+			'${cafeCommentDate}',
+			'${dataregDate}',
+			'${insertDate}',
+			'${crawlerDate}'			
+		)
+
+    </insert>
+    
+    
+    <!-- //////////////////////////////////////////////////////////////////////////////////// -->
+    
+    <select id="CrawlerBlogSelectCount" resultType="Int" parameterType="kr.co.wisenut.webCrawler.vo.BlogVO" >
+    	/**  네이버 뉴스 카운트  : mybatis_naver.CrawlerBlogSelectCount */
+        SELECT 
+        	count(docid) 
+		FROM job_resultblog
+		WHERE 1=1
+		AND docid = '${docid}'
+	    AND keywordNum = '${keywordNum}'
+		AND keyword ='${keyword}'
+		AND mainCategory ='${mainCategory}'
+		AND subCategory ='${subCategory}'
+    </select>
+    
+    
+    <insert id="CrawlerBlogInsert" parameterType="kr.co.wisenut.webCrawler.vo.BlogVO">
+    /** 네이버 블로그 입력  : mybatis_naver.CrawlerBlogInsert */
+    INSERT INTO job_resultblog 
+    (
+        docid,
+        keywordNum,
+	    keyword,
+        mainCategory, 
+	    subCategory, 
+        blogName,
+        blogUrl,
+        blogTitle,
+        blogContent,
+        blogRegdate,
+        dataregdate,
+        insert_date,
+        crawler_date
+    )
+	VALUES 
+	(
+		'${docid}',
+		'${keywordNum}',
+        '${keyword}',
+		'${mainCategory}',
+		'${subCategory}',
+		'${blogName}',
+		'${blogUrl}',
+		'${blogTitle}',
+		'${blogContents}',
+		'${blogInput}',
+		'${dataregDate}',
+		'${blogCrawlerDate}',
+		'${crawlerDate}'
+	)
+    </insert>
+    
+    <update id="CrawlerBlogUpdate" parameterType="kr.co.wisenut.webCrawler.vo.BlogVO">
+    /** 네이버 블로그 업데이트  : mybatis_naver.CrawlerBlogUpdate */
+    UPDATE  job_resultblog 
+    	SET 
+    		keywordNum   = '${keywordNum}',
+        	keyword  	 = '${keyword}',
+    		mainCategory = '${mainCategory}',
+    		subCategory = '${subCategory}',
+	    	blogName = '${blogName}',
+	        blogUrl = '${blogUrl}',
+	        blogTitle = '${blogTitle}',
+	        blogContent = '${blogContents}',
+	        blogRegdate = '${blogInput}',
+	        dataregdate = '${dataregDate}',
+			insert_date = '${insertDate}',
+			crawler_date = '${crawlerDate}'
+    WHERE 1=1 
+    AND docid = '${docid}'
+    AND keywordNum = '${keywordNum}'
+	AND keyword ='${keyword}'
+	AND mainCategory ='${mainCategory}'
+	AND subCategory ='${subCategory}'
+
+    </update>
+  
+</mapper>
